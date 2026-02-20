@@ -204,26 +204,61 @@
         <div class="button-group">
             <button id="startBtn">🎤 Start</button>
             <button id="stopBtn" disabled>🔴 Stop</button>
+            <button id="clearBtn">🗑️ Clear</button>
         </div>
     </div>
 
     <script>
+        // Load messages on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadMessages();
+        });
+        
         const chatBox = document.getElementById('chatBox');
         const startBtn = document.getElementById('startBtn');
         const stopBtn = document.getElementById('stopBtn');
+        const clearBtn = document.getElementById('clearBtn');
         const status = document.getElementById('status');
         const apiKeyInput = document.getElementById('apiKey');
         const assistantIdInput = document.getElementById('assistantId');
         
         let vapi = null;
         let isCallActive = false;
+        let messages = [];
         
-        function addMessage(text, role) {
+        const STORAGE_KEY = 'psych_messages';
+        
+        // Load messages from localStorage
+        function loadMessages() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                messages = JSON.parse(saved);
+                messages.forEach(m => renderMessage(m.text, m.role));
+            }
+        }
+        
+        function saveMessages() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+        }
+        
+        function renderMessage(text, role) {
             const msg = document.createElement('div');
             msg.className = `message ${role}`;
             msg.textContent = text;
             chatBox.appendChild(msg);
             chatBox.scrollTop = chatBox.scrollHeight;
+        }
+        
+        function addMessage(text, role) {
+            messages.push({ text, role });
+            saveMessages();
+            renderMessage(text, role);
+        }
+        
+        function clearHistory() {
+            messages = [];
+            chatBox.innerHTML = '';
+            localStorage.removeItem(STORAGE_KEY);
         }
         
         startBtn.addEventListener('click', async () => {
@@ -289,6 +324,13 @@
                 }
             } catch (err) {
                 status.textContent = '❌ Error stopping: ' + err.message;
+            }
+        });
+        
+        clearBtn.addEventListener('click', () => {
+            if (confirm('Clear all messages?')) {
+                clearHistory();
+                status.textContent = 'History cleared';
             }
         });
     </script>
