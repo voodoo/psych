@@ -1,12 +1,17 @@
 <script lang="ts">
+  import { PUBLIC_VAPI_KEY, PUBLIC_VAPI_ASSISTANT_ID } from '$env/static/public';
   import { initVapi, startCall, stopCall } from './VapiClient';
-  
-  const publicKey = import.meta.env.PUBLIC_VAPI_KEY;
-  const assistantId = import.meta.env.PUBLIC_VAPI_ASSISTANT_ID;
-  
+
+  const publicKey = PUBLIC_VAPI_KEY;
+  const assistantId = PUBLIC_VAPI_ASSISTANT_ID;
+
   let isRunning = false;
   
   async function toggleCall() {
+    if (!publicKey || !assistantId) {
+      alert('Missing Vapi credentials. Add PUBLIC_VAPI_KEY and PUBLIC_VAPI_ASSISTANT_ID to .env');
+      return;
+    }
     try {
       if (!isRunning) {
         initVapi(publicKey);
@@ -17,8 +22,10 @@
         isRunning = false;
       }
     } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      const detail = err instanceof Error && err.cause ? ` (${String(err.cause)})` : '';
       console.error('Error:', err);
-      alert(String(err));
+      alert(`Error: ${msg}${detail}`);
     }
   }
 </script>
@@ -27,6 +34,7 @@
   <h2>Vapi Voice</h2>
   
   <button
+    type="button"
     on:click={toggleCall}
     class={isRunning ? 'running' : 'idle'}
   >

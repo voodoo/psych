@@ -6,9 +6,7 @@ let vapi: Vapi | null = null;
 export const messages = writable<Array<{ role: string; content: string; timestamp: number }>>([]);
 
 export function initVapi(publicKey: string) {
-  vapi = new Vapi({
-    publicKey,
-  });
+  vapi = new Vapi(publicKey);
   
   vapi.on('call-start', () => {
     console.log('Call started');
@@ -18,7 +16,15 @@ export function initVapi(publicKey: string) {
   vapi.on('call-end', () => {
     console.log('Call ended');
   });
-  
+
+  vapi.on('error', (err: unknown) => {
+    console.error('Vapi error event:', err);
+  });
+
+  vapi.on('call-start-failed', (event) => {
+    console.error('Call start failed:', event);
+  });
+
   vapi.on('message', (msg: any) => {
     console.log('Vapi message:', msg);
     
