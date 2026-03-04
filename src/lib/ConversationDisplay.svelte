@@ -30,15 +30,16 @@
     width: 100%;
     height: 400px;
     overflow-y: auto;
-    border: 2px solid #00d9ff;
+    border: 2px solid var(--border-color);
     border-radius: 12px;
     padding: 20px;
-    background: rgba(10, 14, 39, 0.6);
+    background: var(--bg-tertiary);
     backdrop-filter: blur(10px);
     display: flex;
     flex-direction: column;
     gap: 16px;
-    box-shadow: inset 0 0 30px rgba(0, 217, 255, 0.1);
+    box-shadow: inset 0 0 30px var(--glow-color);
+    transition: all 0.3s ease;
   }
   
   .empty {
@@ -75,19 +76,20 @@
     padding: 12px 16px;
     border-radius: 8px;
     word-wrap: break-word;
+    transition: all 0.3s ease;
   }
   
   .message.user .content {
-    background: linear-gradient(135deg, #00d9ff, #0099cc);
-    color: #0a0e27;
-    border: 1px solid #00d9ff;
+    background: linear-gradient(135deg, var(--accent-cyan), #0099cc);
+    color: var(--bg-primary);
+    border: 1px solid var(--accent-cyan);
     font-weight: 500;
   }
   
   .message.assistant .content {
-    background: rgba(255, 0, 110, 0.1);
-    border: 1px solid rgba(255, 0, 110, 0.5);
-    color: #e0e0e0;
+    background: var(--message-assistant-bg);
+    border: 1px solid var(--message-assistant-border);
+    color: var(--text-primary);
   }
   
   .content p {
@@ -113,7 +115,7 @@
   }
   
   ::-webkit-scrollbar-track {
-    background: rgba(0, 217, 255, 0.1);
+    background: var(--glow-color);
     border-radius: 8px;
   }
   
@@ -123,6 +125,6 @@
   }
   
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 217, 255, 0.6);
+    background: var(--accent-cyan);
   }
 </style>
