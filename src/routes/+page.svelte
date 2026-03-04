@@ -2,6 +2,7 @@
   import VapiButton from '../lib/VapiButton.svelte';
   import ConversationDisplay from '../lib/ConversationDisplay.svelte';
   import ThemeToggle from '../lib/ThemeToggle.svelte';
+  import TextInput from '../lib/TextInput.svelte';
 </script>
 
 <svelte:head>
@@ -20,6 +21,7 @@
     <div class="chat-area">
       <ConversationDisplay />
       <VapiButton />
+      <TextInput />
     </div>
   </main>
 
