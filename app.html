@@ -9,27 +9,35 @@
         :root {
             --bg-primary: #0a0e27;
             --bg-secondary: #1a1f4a;
+            --bg-tertiary: rgba(10, 14, 39, 0.6);
             --text-primary: #e0e0e0;
             --accent-cyan: #00d9ff;
             --accent-pink: #ff006e;
             --border-color: #00d9ff;
+            --glow-color: rgba(0, 217, 255, 0.3);
             --button-cyan-bg: linear-gradient(135deg, #00d9ff, #0099cc);
             --button-cyan-hover: linear-gradient(135deg, #00ffff, #0099cc);
             --button-pink-bg: linear-gradient(135deg, #ff006e, #ff3333);
             --button-pink-hover: linear-gradient(135deg, #ff0077, #ff3333);
+            --message-assistant-bg: rgba(255, 0, 110, 0.1);
+            --message-assistant-border: rgba(255, 0, 110, 0.5);
         }
         
-        html.light-mode {
+        [data-theme="light"] {
             --bg-primary: #f5f5f5;
             --bg-secondary: #ffffff;
+            --bg-tertiary: rgba(255, 255, 255, 0.8);
             --text-primary: #1a1a1a;
             --accent-cyan: #0099cc;
             --accent-pink: #cc0066;
             --border-color: #0099cc;
+            --glow-color: rgba(0, 153, 204, 0.2);
             --button-cyan-bg: linear-gradient(135deg, #0099cc, #006699);
             --button-cyan-hover: linear-gradient(135deg, #00aadd, #006699);
             --button-pink-bg: linear-gradient(135deg, #cc0066, #990055);
             --button-pink-hover: linear-gradient(135deg, #dd0077, #990055);
+            --message-assistant-bg: rgba(204, 0, 102, 0.08);
+            --message-assistant-border: rgba(204, 0, 102, 0.4);
         }
         
         * {
@@ -308,11 +316,11 @@
         
         function applyTheme(theme) {
             if (theme === 'light') {
-                html.classList.add('light-mode');
+                html.setAttribute('data-theme', 'light');
                 themeToggle.textContent = '🌙';
                 localStorage.setItem(THEME_KEY, 'light');
             } else {
-                html.classList.remove('light-mode');
+                html.setAttribute('data-theme', 'dark');
                 themeToggle.textContent = '☀️';
                 localStorage.setItem(THEME_KEY, 'dark');
             }

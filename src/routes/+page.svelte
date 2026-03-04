@@ -1,11 +1,14 @@
 <script>
   import VapiButton from '../lib/VapiButton.svelte';
   import ConversationDisplay from '../lib/ConversationDisplay.svelte';
+  import ThemeToggle from '../lib/ThemeToggle.svelte';
 </script>
 
 <svelte:head>
   <title>Psych</title>
 </svelte:head>
+
+<ThemeToggle />
 
 <div class="container">
   <header>
@@ -29,10 +32,33 @@
   :global(body) {
     margin: 0;
     padding: 0;
-    background: #0a0e27;
-    color: #e0e0e0;
+    background: var(--bg-primary);
+    color: var(--text-primary);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     overflow-x: hidden;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  :global(html) {
+    --bg-primary: #0a0e27;
+    --bg-secondary: #1a1f4a;
+    --bg-tertiary: rgba(10, 14, 39, 0.6);
+    --text-primary: #e0e0e0;
+    --accent-cyan: #00d9ff;
+    --accent-pink: #ff006e;
+    --border-color: #00d9ff;
+    --glow-color: rgba(0, 217, 255, 0.3);
+  }
+
+  :global([data-theme="light"]) {
+    --bg-primary: #f5f5f5;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: rgba(255, 255, 255, 0.8);
+    --text-primary: #1a1a1a;
+    --accent-cyan: #0099cc;
+    --accent-pink: #cc0066;
+    --border-color: #0099cc;
+    --glow-color: rgba(0, 153, 204, 0.2);
   }
 
   .container {
@@ -42,7 +68,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background: linear-gradient(135deg, #0a0e27 0%, #1a1f4a 100%);
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    transition: background 0.3s ease;
   }
 
   header {
@@ -53,7 +80,7 @@
   h1 {
     font-size: 3rem;
     margin: 0;
-    background: linear-gradient(90deg, #00d9ff, #ff006e, #00d9ff);
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-pink), var(--accent-cyan));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -65,10 +92,11 @@
 
   header p {
     font-size: 1rem;
-    color: #00d9ff;
+    color: var(--accent-cyan);
     margin: 8px 0 0 0;
     font-weight: 300;
     letter-spacing: 2px;
+    transition: color 0.3s ease;
   }
 
   main {
@@ -97,10 +125,10 @@
 
   @keyframes glow {
     0%, 100% {
-      text-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+      text-shadow: 0 0 10px var(--glow-color);
     }
     50% {
-      text-shadow: 0 0 30px rgba(255, 0, 110, 0.8), 0 0 60px rgba(0, 217, 255, 0.6);
+      text-shadow: 0 0 30px rgba(255, 0, 110, 0.8), 0 0 60px var(--glow-color);
     }
   }
 </style>

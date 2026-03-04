@@ -48,19 +48,20 @@
     flex-direction: column;
     gap: 24px;
     padding: 40px;
-    border: 2px solid #00d9ff;
+    border: 2px solid var(--border-color);
     border-radius: 16px;
     background: rgba(10, 14, 39, 0.8);
     backdrop-filter: blur(10px);
-    box-shadow: 0 0 40px rgba(0, 217, 255, 0.3), inset 0 0 40px rgba(255, 0, 110, 0.05);
+    box-shadow: 0 0 40px var(--glow-color), inset 0 0 40px rgba(255, 0, 110, 0.05);
     min-width: 280px;
+    transition: all 0.3s ease;
   }
   
   h2 {
     margin: 0;
     text-align: center;
     font-size: 1.8rem;
-    background: linear-gradient(90deg, #00d9ff, #ff006e);
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-pink));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -77,25 +78,25 @@
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 2px;
-    box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+    box-shadow: 0 0 20px var(--glow-color);
   }
   
   button.idle {
-    background: linear-gradient(135deg, #00d9ff, #0099cc);
-    color: #0a0e27;
-    border-color: #00d9ff;
+    background: linear-gradient(135deg, var(--accent-cyan), #0099cc);
+    color: var(--bg-primary);
+    border-color: var(--accent-cyan);
   }
   
   button.idle:hover {
     background: linear-gradient(135deg, #00ffff, #0099cc);
-    box-shadow: 0 0 40px rgba(0, 217, 255, 0.8), 0 0 20px rgba(0, 255, 255, 0.6);
+    box-shadow: 0 0 40px var(--glow-color), 0 0 20px rgba(0, 255, 255, 0.6);
     transform: scale(1.05);
   }
   
   button.running {
-    background: linear-gradient(135deg, #ff006e, #ff3333);
+    background: linear-gradient(135deg, var(--accent-pink), #ff3333);
     color: white;
-    border-color: #ff006e;
+    border-color: var(--accent-pink);
     animation: pulse 1s infinite;
   }
   
