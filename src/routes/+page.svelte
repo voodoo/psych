@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import VapiButton from '../lib/VapiButton.svelte';
   import ConversationDisplay from '../lib/ConversationDisplay.svelte';
   import ThemeToggle from '../lib/ThemeToggle.svelte';
