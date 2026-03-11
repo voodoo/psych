@@ -3,10 +3,15 @@
   import ConversationDisplay from '../lib/ConversationDisplay.svelte';
   import ThemeToggle from '../lib/ThemeToggle.svelte';
   import TextInput from '../lib/TextInput.svelte';
+  import TopicSelector from '../lib/TopicSelector.svelte';
+  import { getTopicById } from '../lib/topics';
+
+  let selectedTopic: string | null = null;
+  $: currentTopic = selectedTopic ? getTopicById(selectedTopic) : null;
 </script>
 
 <svelte:head>
-  <title>Psych</title>
+  <title>Psych — Carl Jung Explorer</title>
 </svelte:head>
 
 <ThemeToggle />
@@ -14,11 +19,23 @@
 <div class="container">
   <header>
     <h1>🎙️ PSYCH</h1>
-    <p>Voice-powered conversation</p>
+    <p>Explore Jungian Psychology with AI</p>
   </header>
 
   <main>
     <div class="chat-area">
+      <TopicSelector bind:selectedTopic />
+      
+      {#if currentTopic}
+        <div class="topic-info">
+          <span class="topic-emoji">{currentTopic.emoji}</span>
+          <div>
+            <h3>{currentTopic.name}</h3>
+            <p>{currentTopic.description}</p>
+          </div>
+        </div>
+      {/if}
+
       <ConversationDisplay />
       <VapiButton />
       <TextInput />
@@ -123,6 +140,35 @@
     padding: 20px;
     color: #666;
     font-size: 0.9rem;
+  }
+
+  .topic-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+
+  .topic-emoji {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+  }
+
+  .topic-info h3 {
+    margin: 0 0 5px 0;
+    color: var(--accent-cyan);
+    font-size: 1.1rem;
+  }
+
+  .topic-info p {
+    margin: 0;
+    color: var(--text-primary);
+    opacity: 0.9;
+    font-size: 0.95rem;
   }
 
   @keyframes glow {
